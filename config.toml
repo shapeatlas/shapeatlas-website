@@ -1,4 +1,4 @@
-baseURL = "https://shapeatlas.com/"
+baseURL = "/"
 languageCode = "en-us"
 title = "Shape Atlas"
 theme = "portfolio"
