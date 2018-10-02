@@ -7,6 +7,15 @@ hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
 
 # Go To Public folder
 cd public
+
+# Select the file types for Git LFS to manage 
+# https://git-lfs.github.com/
+git lfs track "*.png"
+git lfs track "*.jpg"
+
+# Make sure .gitattributes is tracked
+git add .gitattributes
+
 # Add changes to git.
 git add .
 
