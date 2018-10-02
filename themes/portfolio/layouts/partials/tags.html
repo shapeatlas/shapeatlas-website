@@ -1,0 +1,9 @@
+<ul class="pa0">
+  {{ range .Params.tags }}
+   <li class="list dib">
+     <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="link f6 no-underline br-pill ba ph3 db pv2 mb2 black sans-serif">
+       #{{- . -}}
+     </a>
+   </li>
+  {{ end }}
+</ul>

@@ -1,0 +1,28 @@
+{{ $featured_image := .Resources.GetMatch "cover" }}
+
+<article class="content ph2-m">
+  <div class="db no-underline">
+    {{ if $featured_image }}
+      {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
+      {{/*  {{ $featured_image := (trim $featured_image "/") | absURL }}  */}}
+      <div class="mb0-ns w-100">
+        <a href="{{.URL}}" class="db">
+          {{ partial "picture-set.html" (dict "image" $featured_image "command" "Resize" "mobile" "500x" "tablet" "500x" "desktop" "500x") }}
+        </a>
+      </div>
+    {{ end }}
+    <div class="w-100 {{ if .Params.featured_image }} {{ end }}">
+      <h1 class="f6 f3-ns fw6 lh-title">
+        <a href="{{.URL}}" class="black hover-black-70 link">
+          {{ .Title }}
+          </a>
+      </h1>
+      <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+        {{ .Summary }}
+      </div>
+      <a href="{{.URL}}" class="bt b--black-70 fw6 color-inherit dib f7 dim link mt2 ph1 pv2">{{$.Param "read_more_copy" | default "view" }}</a>
+      {{/* TODO: add author
+      <p class="f6 lh-copy mv0">By {{ .Author }}</p> */}}
+    </div>
+  </div>
+</article>

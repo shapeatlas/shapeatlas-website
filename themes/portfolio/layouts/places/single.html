@@ -1,0 +1,69 @@
+{{ define "header" }}
+   {{/* We can override any block in the baseof file be defining it in the template */}}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  <article class="flex flex-column flex-row-ns flex-column-reverse justify-around center mw8 ph3 mt4">
+
+    <header class="w-100 w-50-ns pr2">
+        <p class="f6 b tracked">
+            {{/*
+            CurrentSection allows us to use the section title instead of inferring from the folder.
+            https://gohugo.io/variables/page/#section-variables-and-methods
+            */}}
+        {{with .CurrentSection.Title }}{{. | upper }}{{end}}
+        </p>
+        <h1 class="f1 times mb1 ma0">
+            {{- .Title -}}
+        </h1>
+        {{ with .Params.description  }}
+          <h2 class="fw4 f5 f3-l measure-wide-l lh-copy">
+            {{ . }}
+          </h2>
+        {{ end }}
+        {{ with $.Param "location.place" }}
+          <p>{{ $.Param "location.place" }}, {{ $.Param "location.country" }}</p>
+        {{ end }}
+        {{ with $.Param "location.prettyLon" }}
+          <p>{{ $.Param "location.prettyLon" }}, {{ $.Param "location.prettyLat" }}</p>
+        {{ end }}
+        {{ with $.Param "format" }}
+          <p>{{ $.Param "format.width" }}&#215;{{ $.Param "format.height" }} mm</p>
+        {{ end }}
+        {{- partial "tags.html" . -}}
+        <div class="list dib">
+          <a class="link white f6 no-underline br2 dim ph3 db pv2 mb2 pointer" style="background-color: #BD081C;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonPin" data-pin-custom="true">Save on Pinterest</a>
+        </div>
+          {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
+        {{/*  <time class="f6 mv4 dib tracked" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        {{- .Date.Format "January 2, 2006" -}}
+        </time>  */}}
+    </header>
+
+    <main class="nested-copy-line-height lh-copy f4 nested-links nested-img w-50-ns w-100">
+      {{ with .Resources.ByType "image" }}
+        {{ range . }}
+          <div class="pb3 w-100 tc">
+            {{ $title := $.Param "title" }}
+            {{ $description := " map print by Shape Atlas."  }}
+            {{ $place := $.Param "location.place" }}
+            {{ $country := $.Param "location.country" }}
+  
+            {{ $pin := print $title $description " #" $place " #" $country " #map #print #maps #architecture #urban #art #poster #home #decoration #wall #graphics #colorful" }}
+            {{ $alt := print $title $description }}
+            <div class="vh-75">
+              {{ partial "picture-set.html" (dict "image" . "command" "Resize" "mobile" "500x" "tablet" "500x" "desktop" "1000x" "alt" $alt "pin" $pin) }}
+            </div>
+
+        </div>
+        {{ end }}
+      {{ end }}
+      
+    </main>
+
+  </article>
+  <aside class="w-100 pt5-ns pt3">
+    {{- partial "menu-contextual.html" . -}}
+  </aside>
+{{ end }}

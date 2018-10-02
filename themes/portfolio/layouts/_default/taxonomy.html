@@ -1,0 +1,11 @@
+{{ define "main" }}
+<section class="w-100 pa4">
+  <div class="flex flex-wrap">
+    {{ range  .Pages }}
+      <div class="mb4 w-100 w-25-l w-33-m pa2">
+        {{ partial "summary-with-image.html" . }}
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

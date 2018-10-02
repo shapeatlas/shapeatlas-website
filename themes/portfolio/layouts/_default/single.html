@@ -1,0 +1,58 @@
+{{ define "header" }}
+   {{/* We can override any block in the baseof file be defining it in the template */}}
+  {{ partial "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+    <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+        <p class="f6 b tracked">
+            {{/*
+            CurrentSection allows us to use the section title instead of inferring from the folder.
+            https://gohugo.io/variables/page/#section-variables-and-methods
+            */}}
+        {{with .CurrentSection.Title }}{{. | upper }}{{end}}
+        </p>
+        <h1 class="f1 mb1">
+            {{- .Title -}}
+        </h1>
+        {{ with .Params.description  }}
+          <h2 class="fw4 f5 f3-l measure-wide-l lh-copy mt3 mb4">
+            {{ . }}
+          </h2>
+        {{ end }}
+        {{ with $.Param "location.place" }}
+          <p>{{ $.Param "location.place" }}, {{ $.Param "location.country" }}</p>
+        {{ end }}
+        {{ with $.Param "format" }}
+          <p>{{ $.Param "format.width" }}&#215;{{ $.Param "format.height" }} mm</p>
+        {{ end }}
+        {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
+        {{/*  <time class="f6 mv4 dib tracked" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        {{- .Date.Format "January 2, 2006" -}}
+        </time>  */}}
+    </header>
+
+    <main class="nested-copy-line-height lh-copy f4 nested-links nested-img">
+      <div class="w-two-thirds-l pb3 pb4-ns">
+        {{- .Content -}}
+      </div>
+
+      {{ with .Resources.ByType "image" }}
+        {{ range . }}
+          <div class="pb3 w-100">
+            {{ $value := $.Param "location.place" }}
+          {{ partial "picture-set.html" (dict "image" . "command" "Resize" "mobile" "500x" "tablet" "500x" "desktop" "1000x" "value" $value) }}
+          </div>
+        {{ end }}
+      {{ end }}
+
+      {{- partial "tags.html" . -}}
+    </main>
+
+  </article>
+  <aside class="w-100 pt5-ns pt3">
+    {{- partial "menu-contextual.html" . -}}
+  </aside>
+{{ end }}

@@ -1,0 +1,47 @@
+baseURL = "https://shapeatlas.com/"
+languageCode = "en-us"
+title = "Shape Atlas"
+theme = "portfolio"
+MetaDataFormat = "yaml"
+DefaultContentLanguage = "en"
+SectionPagesMenu = "main"
+Paginate = 44 # this is set low for demonstrating with dummy content. Set to a higher number
+googleAnalytics = ""
+enableRobotsTXT = false
+publishDir = "public"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[params]
+  favicon = ""
+  description = "Fine prints of fine places."
+  facebook = ""
+  twitter = ""
+  instagram = "https://www.instagram.com/shapeatlas/"
+  youtube = ""
+  pinterest = "https://www.pinterest.de/shapeatlas/"
+  github = ""
+  linkedin = ""
+  # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
+  background_color_class = "bg-black"
+  body_classes = "sans-serif bg-near-white"
+  featured_image = ""
+  recent_posts_number = 32
+
+[imaging]
+  # Default resample filter used for resizing. Default is Box,
+  # a simple and fast averaging filter appropriate for downscaling.
+  # See https://github.com/disintegration/imaging
+  resampleFilter = "Lanczos"
+
+  # Defatult JPEG quality setting. Default is 75.
+  quality = 85
+
+  # Anchor used when cropping pictures.
+  # Default is "smart" which does Smart Cropping, using https://github.com/muesli/smartcrop
+  # Smart Cropping is content aware and tries to find the best crop for each image.
+  # Valid values are Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  anchor = "Smart"

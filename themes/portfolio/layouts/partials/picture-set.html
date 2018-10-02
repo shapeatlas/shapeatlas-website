@@ -1,0 +1,37 @@
+{{ $original := .image }}
+{{ $command := .command }}
+{{ $mobile_params := .mobile }}
+{{ $tablet_params := .tablet }}
+{{ $desktop_params := .desktop }}
+{{ $scratch := newScratch }}
+{{ if eq $command "Fit"}}
+    {{ $scratch.Set "desktop" ($original.Fit $desktop_params) }}
+    {{ $scratch.Set "tablet" ($original.Fit $tablet_params) }}
+    {{ $scratch.Set "mobile" ($original.Fit $mobile_params) }}
+{{ else if eq $command "Resize"}}
+    {{ $scratch.Set "desktop" ($original.Resize $desktop_params) }}
+    {{ $scratch.Set "tablet" ($original.Resize $tablet_params) }}
+    {{ $scratch.Set "mobile" ($original.Resize $mobile_params) }}
+{{ else if eq $command "Fill"}}
+    {{ $scratch.Set "desktop" ($original.Fill $desktop_params) }}
+    {{ $scratch.Set "tablet" ($original.Fill $tablet_params) }}
+    {{ $scratch.Set "mobile" ($original.Fill $mobile_params) }}
+{{ else }}
+    {{ errorf "Invalid image processing command: Must be one of Fit, Fill or Resize."}}
+{{ end }}
+{{ $desktop_scaled := $scratch.Get "desktop" }}
+{{ $tablet_scaled := $scratch.Get "tablet" }}
+{{ $mobile_scaled := $scratch.Get "mobile" }}
+
+<picture>
+    <source 
+        srcset="{{ $desktop_scaled.RelPermalink }}"
+        media="(min-width: 1200px)">
+    <source 
+        srcset="{{ $tablet_scaled.RelPermalink }}"
+        media="(min-width: 600px)">
+    <source 
+        srcset="{{ $mobile_scaled.RelPermalink }}"
+        media="(min-width: 100px)">
+    <img class="w-100" style="max-height:100%; width: auto;" alt="{{ .alt }}" data-pin-description="{{ .pin }}" style="min-width: 100%; height: auto;" src="{{ $tablet_scaled.RelPermalink }}" >
+</picture>

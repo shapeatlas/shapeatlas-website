@@ -1,0 +1,4 @@
+<svg {{ with .size }} height="{{ . }}" {{ end }} viewBox="0 0 100 100" style="{{ with .fill }} fill:{{ . }}; {{ end }} display: inline-block;
+   vertical-align: middle; enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="{{ .size }}" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <path d="m50 0c-20.199 0-36.801 16.398-36.801 36.801 0 8.3984 3 16 7.6016 22.398l29.199 40.801 29.199-40.801c4.6016-6.3984 7.6016-14 7.6016-22.398 0-20.402-16.402-36.801-36.801-36.801zm0 59.801c-12.602 0-23-10.199-23-23s10.398-23 23-23 23 10.199 23 23c0 12.598-10.398 23-23 23z"/>
+</svg>

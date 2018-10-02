@@ -1,0 +1,31 @@
+{{ $original := .Page.Resources.GetMatch (printf "*%s*" (.Get 0)) }}
+{{ $command := .Get 1 }}
+{{ $optionsdesktop := .Get 2 }}
+{{ $optionsmobile := .Get 3 }}
+{{ if eq $command "Fit"}}
+{{ .Scratch.Set "imagedesktop" ($original.Fit $optionsdesktop) }}
+{{ .Scratch.Set "imagemobile" ($original.Fit $optionsmobile) }}
+{{ else if eq $command "Resize"}}
+{{ .Scratch.Set "imagedesktop" ($original.Resize $optionsdesktop) }}
+{{ .Scratch.Set "imagemobile" ($original.Resize $optionsmobile) }}
+{{ else if eq $command "Fill"}}
+{{ .Scratch.Set "imagedesktop" ($original.Fill $optionsdesktop) }}
+{{ .Scratch.Set "imagemobile" ($original.Fill $optionsmobile) }}
+{{ else }}
+{{ errorf "Invalid image processing command: Must be one of Fit, Fill or Resize."}}
+{{ end }}
+{{ $imagedesktop := .Scratch.Get "imagedesktop" }}
+{{ $imagemobile := .Scratch.Get "imagemobile" }}
+<div class="mv4">
+	<picture style="max-width: 100%; height: auto;" >
+		<source 
+			srcset="{{ $imagedesktop.RelPermalink }}"
+			media="(min-width: 800px)">
+		<img style="max-width: 100%; height: auto;" src="{{ $imagemobile.RelPermalink }}" >
+	</picture>
+	<small>
+		{{ with .Inner }}
+		{{ . }}
+		{{ end }}
+	</small>
+</div>

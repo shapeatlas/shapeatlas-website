@@ -1,0 +1,23 @@
+<article class="tc pt5-ns pt4 ph3 ph6-l bg-near-black white">
+  <div class="ba pa4 mh3 br4 b--near-white near-white">
+    <h1 class="fw6 f3 f2-ns lh-title mt0 mb3">
+      Custom orders available.
+    </h1>
+    <a class="f5 fw6 br-pill black bg-near-white hover-bg-white near-black no-underline pv2 ph3 dib mr3"
+    href="mailto:rbejnar@gmail.com?subject=Shape Atlas Inquiry&body=Hi,">
+      Email me
+    </a>
+  </div>
+</article>
+
+<footer class="bg-near-black white bottom-0 w-100 pa3 tc" role="contentinfo"> 
+  <div class="flex justify-around pa4">
+    {{ partial "social-follow.html" . }}
+  </div>
+  <div class="flex justify-around">
+    <a class="p fw4 white-70 hover-white-90 no-underline dn dib-ns pv2 ph3" href="{{ .Site.BaseURL }}" >
+      &copy; {{ now.Format "2006" }} {{ .Site.Title }} Roman Bejnar
+    </a>
+  </div>
+  <p>Shape Atlas is a project by <a class="white" href="https://bejnar.de/">Roman Bejnar,</a> a designer and developer in Berlin, Germany.</p>
+</footer>
