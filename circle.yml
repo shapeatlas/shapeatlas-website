@@ -46,12 +46,11 @@ deployment:
     branch: master
     commands:
 
-      # updates: http://mostlygeek.com.s3-website-us-east-1.amazonaws.com
-      - s3deploy -source=public/ -region=us-east-1 -bucket=mostlygeek.com
+      # updates: http://shapeatlas.com.s3-website-eu-west-1.amazonaws.com
+      - s3deploy -source=public/ -region=eu-west-1 -bucket=shapeatlas.com
 
       # Invalidate everything in the CDN. Since we do not know what
-      # changed it is easier to just dump everything. Not a big
-      # deal since mostlygeek.com isn't a massive site.
+      # changed it is easier to just dump everything. 
       #
       # This is an async step. This task does not wait for the CDN
       # to invalidate objects before continuing.
@@ -59,13 +58,4 @@ deployment:
       - >
         aws cloudfront create-invalidation
         --distribution-id $CLOUDFRONT_DISTRIBUTION_ID
-        --paths '/*'
-      # ping myself when the deployment steps have completed
-      # only if PUSHOVER credentials have been set in CircleCI's UI
-      - >
-        [ ! -z "$PUSHOVER_APP_TOKEN" ] && curl
-        --silent
-        --form-string "token=$PUSHOVER_APP_TOKEN"
-        --form-string "user=$PUSHOVER_USER_KEY"
-        --form-string "message=blog deploy complete"
-        "https://api.pushover.net/1/messages.json";
+        --paths '/*';
