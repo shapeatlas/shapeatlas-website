@@ -42,12 +42,6 @@
     {{- template "_internal/google_news.html" . -}}
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
-    {{/*  Pinterest JS  */}}
-    
-    <script
-        type="text/javascript"
-        async defer
-        src="//assets.pinterest.com/js/pinit.js"></script>
 
     {{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")  }}
       {{ template "_internal/google_analytics_async.html" . }}
