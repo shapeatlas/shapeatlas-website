@@ -33,7 +33,19 @@
         {{ end }}
         {{- partial "tags.html" . -}}
         <div class="list dib">
-          <a class="link white f6 no-underline br2 dim ph3 db pv2 mb2 pointer" style="background-color: #BD081C;" target="_blank" href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonPin" data-pin-custom="true">Save on Pinterest</a>
+          {{ $pin := .Resources.GetMatch "cover" }}
+          {{ $title := $.Param "title" }}
+          {{ $description := " map print by Shape Atlas."  }}
+          {{ $place := $.Param "location.place" }}
+          {{ $country := $.Param "location.country" }}
+          {{ $pinDesc := print $title $description " #" $place " #" $country " #map #maps #print #prints #travel #architecture #art #poster #home #decoration #wall #graphics #minimal" }}
+
+          <a class="link white f6 no-underline br2 dim ph3 db pv2 mb2 pointer"
+            style="background-color: #BD081C;"
+            target="_blank"
+            href="//pinterest.com/pin/create/button/?url={{ $pin.Permalink }}&amp;description={{ $pinDesc }}"
+          >Save on Pinterest
+          </a>
         </div>
           {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
         {{/*  <time class="f6 mv4 dib tracked" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
@@ -50,10 +62,9 @@
             {{ $place := $.Param "location.place" }}
             {{ $country := $.Param "location.country" }}
   
-            {{ $pin := print $title $description " #" $place " #" $country " #map #print #maps #architecture #urban #art #poster #home #decoration #wall #graphics #colorful" }}
             {{ $alt := print $title $description }}
             <div class="vh-75">
-              {{ partial "picture-set.html" (dict "image" . "command" "Resize" "mobile" "500x" "tablet" "500x" "desktop" "1000x" "alt" $alt "pin" $pin) }}
+              {{ partial "picture-set.html" (dict "image" . "command" "Resize" "mobile" "500x" "tablet" "500x" "desktop" "1000x" "alt" $alt) }}
             </div>
 
         </div>
