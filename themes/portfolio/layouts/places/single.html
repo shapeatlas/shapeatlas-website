@@ -4,6 +4,13 @@
 {{ end }}
 
 {{ define "main" }}
+
+{{ with .Resources.ByType "image" }}
+  {{ range . }}
+   {{ partial "preview/preview.html" (dict "image" . "command" "Resize" "tablet" "500x" ) }}
+  {{ end }}
+{{ end }}
+
   <article class="flex flex-column flex-row-ns flex-column-reverse justify-around center mw8 ph3 mt4">
 
     <header class="w-100 w-50-ns pr2">
@@ -44,6 +51,8 @@
     <main class="nested-copy-line-height lh-copy f4 nested-links nested-img w-50-ns w-100">
       {{ with .Resources.ByType "image" }}
         {{ range . }}
+          {{/*  {{ partial "preview/preview.html" (dict "image" . "command" "Resize" "tablet" "500x" ) }}  */}}
+
           <div class="pb3 w-100 tc">
             {{ $title := $.Param "title" }}
             {{ $description := " map print by Shape Atlas."  }}
