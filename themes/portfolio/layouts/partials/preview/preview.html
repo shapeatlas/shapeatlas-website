@@ -15,19 +15,19 @@
 {{ $tablet_scaled := $scratch.Get "tablet" }}
 
 <div class="vh-75 bg-white overflow-hidden">
-  <a-scene antialias="true" embedded>
+  <a-scene antialias="true" embedded background="color: blue">
     <a-assets>
       <img id="preview" src="{{ $tablet_scaled.RelPermalink }}">
     </a-assets>
 
-    <a-sky color="#ececec"></a-sky>
-    <a-plane id="wall" color="#eee" height="2" width="5" position="0 1 -3.55" ></a-plane>
+    <a-sky color="blue"></a-sky>
+    <a-plane id="wall" color="#eee" height="4" width="5" position="0 2 -3.55" ></a-plane>
     <a-plane color="#ccc" height="5" width="5" rotation="-90 0 0" position="0 0 -2" ></a-plane>
+    <a-light type="point" color="blue" position="0 5 0"></a-light>
 
     <!-- Textured plane parallel to ground. -->
     <a-image id="poster" src="#preview" height="0.95" width="0.78" scale="0.850 1.020 1.150" position="-0.005 1.195 -3.490"></a-image>
     <a-entity id="frame" io3d-furniture="id:bc1e971a-b055-42ab-ab2f-f549a0d84684" position="0 0 -3.5"></a-entity>
-
 
     <a-entity io3d-furniture="id:9573e45f-0102-4772-8130-9f0066add103" scale="0.5 0.5 0.5" position="1 0 -3"></a-entity>
         
@@ -37,7 +37,7 @@
     <a-entity id="books" io3d-furniture="id:6a60a2b2-d171-428c-ac19-d8a7a8aacda0" position="0 0 -3"></a-entity>
     <a-entity id="rug" io3d-furniture="id:d23062b7-6ec4-45c0-9cee-c96d835b5f54" rotation="0 90 0" position="0.565 0 -2.503"></a-entity>
 
-    <a-entity camera orbit-controls="target:#poster; autoRotate: false; enablePan: false;" position="0 1 -2"></a-entity>
+    <a-entity camera position="0 1 -1.5"></a-entity>
   </a-scene>
 </div>
 <script>
