@@ -1,0 +1,119 @@
+{{ $original := .image }}
+{{ $command := .command }}
+{{ $tablet_params := .tablet }}
+{{ $scratch := newScratch }}
+{{ if eq $command "Fit"}}
+    {{ $scratch.Set "tablet" ($original.Fit $tablet_params) }}
+{{ else if eq $command "Resize"}}
+    {{ $scratch.Set "tablet" ($original.Resize $tablet_params) }}
+{{ else if eq $command "Fill"}}
+    {{ $scratch.Set "tablet" ($original.Fill $tablet_params) }}
+{{ else }}
+    {{ errorf "Invalid image processing command: Must be one of Fit, Fill or Resize."}}
+{{ end }}
+
+{{ $tablet_scaled := $scratch.Get "tablet" }}
+
+<div class="vh-75 bg-white overflow-hidden">
+  <a-scene antialias="true" shadow="autoUpdate: true; type: pcfsoft;" embedded>
+    <a-assets>
+      <img id="preview" src="{{ $tablet_scaled.RelPermalink }}">
+      <a-asset-item id="plant" src="/models/hoja_de_elefante/scene.gltf"></a-asset-item>
+    </a-assets>
+    <a-sky color="#eee"></a-sky>
+
+    <a-entity light="type: ambient; color: #fff; intensity: 0.95;"></a-entity>
+    <a-entity light="type: directional; intensity: 0.8; distance: 80; decay: -6.33; castShadow: true; 
+    angle: 18.59; shadowCameraFar: 501.38; shadowCameraRight: 5.39; shadowCameraTop: 5.64; 
+    shadowMapHeight: 200; shadowMapWidth: 200" position="0 6 -1.023"></a-entity>
+    <a-entity light="type: spot; intensity: 0.5; penumbra: 1; distance: 50.79; castShadow: true; angle: 30"
+          position="-0.121 2 -0.056"></a-entity>  
+
+
+    <!-- Textured plane parallel to ground. -->
+    <a-image id="poster" src="#preview" height="0.9" width="0.78" scale="0.790 1 1.150" position="-0.023 1.028 -3.52"></a-image>
+
+    <a-entity gltf-model="#plant" scale="0.005 0.005 0.005" rotation="0 0 0" position="0.5 0.3 -3.247" shadow="cast: true; receive: false"></a-entity>
+    <a-entity geometry="primitive: cylinder; radius: 0.1; height: 0.2" 
+      position="0.5 0.31 -3.15"
+      material="color: #302825; roughness: 0.1; metalness: 0.9">
+    </a-entity>
+
+    <a-entity geometry="primitive: cylinder; radius: 0.12; height: 0.2" 
+      position="0.5 0.3 -3.15"
+      material="color: #fff; roughness: 0.1; metalness: 0.4">
+    </a-entity>
+
+    <a-entity geometry="primitive: cylinder; radius: 0.06; height: 0.3" 
+      position="0.5 1.3 -3.4"
+      material="color: #777; roughness: 0.1; metalness: 0.9" shadow="cast: true; receive: false">
+    </a-entity>
+    <a-cylinder position="0.5 2.8 -3.4" radius="0.01" height="3" 
+      material="color: #000; roughness: 1; metalness: 0"></a-cylinder>
+    
+    <a-entity 
+      id="frameR"
+      geometry="primitive: box; height: 1.00; width: 0.025; depth: 0.025;" 
+      material="src: /textures/oak2.png; color: #fff; roughness: 1; metalness: 0;" 
+      position="0.322 1.022 -3.52" 
+      shadow="cast: false; receive: true">
+    </a-entity>
+
+    <a-entity 
+      id="frameL"
+      geometry="primitive: box; height: 1.00; width: 0.025; depth: 0.025;" 
+      material="src: /textures/oak2.png; color: #fff; roughness: 1; metalness: 0;" 
+      position="-0.37 1.022 -3.52" 
+      shadow="cast: false; receive: true">
+    </a-entity>
+
+    <a-entity 
+      id="frameT"
+      geometry="primitive: box; height: 0.025; width: 0.675; depth: 0.025;" 
+      material="src: /textures/oak2.png; color: #fff; roughness: 1; metalness: 0;" 
+      position="-0.026 1.509 -3.52" 
+      shadow="cast: false; receive: true">
+    </a-entity>
+
+    <a-entity 
+      id="frameB"
+      geometry="primitive: box; height: 0.025; width: 0.675; depth: 0.025;" 
+      material="src: /textures/oak2.png; color: #fff; roughness: 1; metalness: 0;" 
+      position="-0.026 0.535 -3.52" 
+      shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="frameBg" 
+      geometry="primitive: plane; height:0.98; width: 0.700;" 
+      material="color: #ccc;" 
+      position="-0.025 1.032 -3.525"></a-entity>
+
+    <a-entity 
+      id="wall" 
+      geometry="primitive: plane; height: 3; width: 5" 
+      material="src: /textures/Rough_Painted_Wall_001_OCC.jpg; color: #46878F; roughness: 1; metalness: 0; repeat: 4 18;" 
+      position="0 1.5 -3.55" 
+      shadow="cast: false; receive: true">
+    </a-entity>
+
+    <a-entity 
+      id="floor" 
+      geometry="primitive: plane; height: 5; width: 5" 
+´     material="src: /textures/Quartz_002_COLOR.jpg; color: #fff; roughness: 0; metalness: 0.4; repeat: 5 10" 
+      rotation="-90 0 0" position="0 0.25 -2"
+      shadow="cast: false; receive: true">
+    </a-entity>
+    
+    <a-entity camera position="-0.05 1 -2.5" 
+    orbit-controls="
+    autoRotate: false;
+    target: #poster;
+    enableDamping: true;
+    dampingFactor: 0.25;
+    rotateSpeed:0.14;
+    minDistance:0.6;
+    maxDistance:2;"></a-entity>
+  </a-scene>
+</div>
+<script>
+</script>

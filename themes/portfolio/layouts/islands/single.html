@@ -5,6 +5,12 @@
 
 {{ define "main" }}
 
+{{ with .Resources.ByType "image" }}
+  {{ range . }}
+   {{ partial "preview/preview.html" (dict "image" . "command" "Resize" "tablet" "500x" ) }}
+  {{ end }}
+{{ end }}
+
   <article class="flex flex-column flex-row-ns flex-column-reverse justify-around center mw8 ph3 mt4">
 
     <header class="w-100 w-50-ns pr2">
