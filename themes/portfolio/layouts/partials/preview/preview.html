@@ -15,29 +15,44 @@
 {{ $tablet_scaled := $scratch.Get "tablet" }}
 
 <div class="vh-75 bg-white overflow-hidden">
-  <a-scene antialias="true" embedded background="color: blue">
+  <a-scene antialias="true" shadow="autoUpdate: true; type: pcfsoft;" embedded>
     <a-assets>
       <img id="preview" src="{{ $tablet_scaled.RelPermalink }}">
-    </a-assets>
+      <a-asset-item id="pontus_desk" src="/models/pontus_desk/scene.gltf"></a-asset-item>
+      <a-asset-item id="chair" src="/models/chat_oak_with_polster_chair/scene.gltf"></a-asset-item>
+      <a-asset-item id="light" src="/models/pilsner_ceiling_lamp_gold_-_56018/scene.gltf"></a-asset-item>
+      <a-asset-item id="small_table" src="/models/end_table_-_household_props_challenge_-_day_15/scene.gltf"></a-asset-item>
 
-    <a-sky color="blue"></a-sky>
-    <a-plane id="wall" color="#eee" height="4" width="5" position="0 2 -3.55" ></a-plane>
-    <a-plane color="#ccc" height="5" width="5" rotation="-90 0 0" position="0 0 -2" ></a-plane>
-    <a-light type="point" color="blue" position="0 5 0"></a-light>
+      
+    </a-assets>
+    <a-sky color="white"></a-sky>
+    <a-plane id="wall" color="#eee" height="4" width="5" position="0 2 -3.55" shadow="cast: false; receive: true"></a-plane>
+    <a-plane color="#eee" height="5" width="5" rotation="-90 0 0" position="0 0 -2" shadow="cast: false; receive: true"></a-plane>
+
+    <a-entity light="type: ambient; intensity: 0.7;"></a-entity>
+    <a-entity light="type: directional; intensity: 0.7; distance: 50; decay: 2; castShadow:true;"
+          position="-5 3 1.5"></a-entity>
+
 
     <!-- Textured plane parallel to ground. -->
     <a-image id="poster" src="#preview" height="0.95" width="0.78" scale="0.850 1.020 1.150" position="-0.005 1.195 -3.490"></a-image>
     <a-entity id="frame" io3d-furniture="id:bc1e971a-b055-42ab-ab2f-f549a0d84684" position="0 0 -3.5"></a-entity>
 
-    <a-entity io3d-furniture="id:9573e45f-0102-4772-8130-9f0066add103" scale="0.5 0.5 0.5" position="1 0 -3"></a-entity>
-        
-    <a-entity id="chair" io3d-furniture="id:db0da887-30d5-4ea8-a213-43f73bc22de0" rotation="0 0 0" position="-1.036 0 -3.247"></a-entity>
-    <a-entity id="plant" io3d-furniture="id:8b8e6614-ea44-420e-972e-1fb8a2e26297" position="1.329 0 -2.929"></a-entity>
-    <a-entity id="table" io3d-furniture="id:53be06a8-2c60-412c-b2ce-ed7fc06645c5" position="0 0 -3"></a-entity>
-    <a-entity id="books" io3d-furniture="id:6a60a2b2-d171-428c-ac19-d8a7a8aacda0" position="0 0 -3"></a-entity>
-    <a-entity id="rug" io3d-furniture="id:d23062b7-6ec4-45c0-9cee-c96d835b5f54" rotation="0 90 0" position="0.565 0 -2.503"></a-entity>
+    <a-entity gltf-model="#pontus_desk" scale="0.015 0.015 0.015" position="0 0 -3.247" shadow="cast: true; receive: false"></a-entity>
+    <a-entity gltf-model="#chair" scale="0.001 0.001 0.001" rotation="0 0 0" position="-1.036 0 -3.247" shadow="cast: true; receive: false"></a-entity>
+    <a-entity gltf-model="#small_table" scale="0.1 0.1 0.1" rotation="0 0 0" position="-1.036 0 -1.247" shadow="cast: true; receive: false"></a-entity>
 
-    <a-entity camera position="0 1 -1.5"></a-entity>
+    <a-entity gltf-model="#light" scale="0.01 0.01 0.01" position="1 1 -3" shadow="cast: true; receive: false"></a-entity>
+
+    <a-entity camera position="0.4 0.8 -1.5" 
+    orbit-controls="
+    autoRotate: false;
+    target: #poster;
+    enableDamping: true;
+    dampingFactor: 0.25;
+    rotateSpeed:0.14;
+    minDistance:1;
+    maxDistance:15;"></a-entity>
   </a-scene>
 </div>
 <script>
